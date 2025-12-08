@@ -1,0 +1,297 @@
+# 网站标题
+# 如果没有设置，会使用 Hexo 主配置文件中的 title
+# title: StudyBin
+
+# 网站副标题
+# 如果没有设置，会使用 Hexo 主配置文件中的 subtitle
+# subtitle: 学习笔记和技术分享
+
+# 网站描述
+# 如果没有设置，会使用 Hexo 主配置文件中的 description
+# description: 记录学习过程，分享技术心得
+
+# 导航栏菜单
+menu:
+  首页: /
+  归档: /archives/
+  标签: /tags/
+  关于: /about/
+
+# 网站语言
+# language: zh-CN
+
+# 侧边栏设置
+aside:
+  enable: true
+  mobile: true
+  position: right
+  card_post_count: true
+  card_categories: true
+  card_tags: true
+  card_archives: true
+  effect: slide
+  card_author:
+    enable: true
+    description: 魔法少年猫尾草的个人博客
+    button:
+      enable: true
+      icon: fab fa-github
+      text: Follow Me
+      link: https://github.com/alex2333333-coder
+  # 登录注册卡片
+  card_auth:
+    enable: true
+    title: 用户中心
+    content: 登录后可以发表评论和点赞
+
+# 首页文章设置
+index_post:
+  enable: true
+  length: 150
+  auto_excerpt: false
+
+# 代码高亮设置
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: true
+  tab_replace: ''
+
+# 社交链接
+social:
+  GitHub: https://github.com/alex2333333-coder
+  CSDN: https://blog.csdn.net/2301_80295456?spm=1011.2124.3001.5343
+  Bilibili: https://space.bilibili.com/2104956793
+  Email: mailto:2136026360@qq.com
+
+# 评论系统设置
+# 可以根据需要配置 Disqus、Gitalk、Valine 等
+comment:
+  enable: true
+  use: Waline
+  text: 评论
+  lazyload: false
+  count: true
+  card_post_count: true
+
+# Busuanzi count for PV / UV in site
+busuanzi:
+  site_uv: false
+  site_pv: false
+  page_pv: false
+
+# Waline 评论系统配置
+waline:
+  serverURL: https://waline.vercel.app
+  path: window.location.pathname
+  lang: zh-CN
+  serverURLs: 
+  visitor: true
+  comment: true
+  emoji: 
+    - https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo
+    - https://cdn.jsdelivr.net/gh/walinejs/emojis/tieba
+    - https://cdn.jsdelivr.net/gh/walinejs/emojis/bilibili
+  meta: [nick, mail, link]
+  requiredMeta: [nick, mail]
+  login: enable
+  wordLimit: 0
+  pageSize: 10
+  imageUploader: false
+  highlighter: false
+  math: false
+  copyright: false
+  like: true
+  dislike: false
+  reaction: false
+  recaptchaV3: 
+  recaptchaV2: 
+  locale: 
+  placeholder: 欢迎留下您的评论~ 您的反馈对我很重要！
+  dark: auto
+  sort: newest
+  avatar: monsterid
+  anonymous: 匿名用户
+  adminEmailHash: 
+  required: false
+  preview: false
+  hash: false
+  search: true
+  tagMeta: true
+
+# 网站统计
+# 可以根据需要配置 Google Analytics、百度统计等
+# analytics:
+#   enable: false
+
+# 搜索功能
+search:
+  enable: true
+  service: hexo
+  path: search.xml
+  field: post
+  content: true
+
+# 网站图标
+favicon: /img/favicon.ico
+
+# 头像设置
+avatar:
+  img: /images/avatar.jpg
+  effect: true
+
+# 背景图片设置
+background:
+  enable: true
+  url: /images/background.png
+  fixed: true
+  repeat: no-repeat
+  cover: true
+  opacity: 0.7
+  dark: true
+  position: center
+  size: cover
+
+# 首页 banner 图片
+index_img: /images/background.png
+
+# 首页 banner 高度
+index_top_img_height: 600px
+
+# 首页站点信息位置
+index_site_info_top: 200px
+
+# 首页 banner 样式
+index_banner:
+  enable: true
+  fit: cover
+  position: center
+  size: cover
+
+# 版权信息
+copyright:
+  enable: true
+  license: CC BY-NC-SA 4.0
+  license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+# 图片懒加载
+lazyload:
+  enable: true
+
+# 进度条
+progressbar:
+  enable: true
+  height: 3px
+  color: '#ff0000'
+  start: '#ff0000'
+  end: '#00ffff'
+  opacity: 1
+  duration: 0.3
+
+# 阅读模式
+readmode:
+  enable: true
+
+# 复制代码时添加版权信息
+copy_btn:
+  enable: true
+  show_result: true
+  style: default
+
+# 页面加载动画
+loading:
+  enable: true
+  type: spin-dots
+  duration: 2000
+
+# 文章卡片动画
+card:
+  effect: scale
+  hover: shadow
+
+# 打字机效果
+# typing:
+#   enable: true
+#   type: single
+#   text: ['欢迎来到魔法少年猫尾草的博客', '这里分享技术和生活']
+#   cursor: true
+#   duration: 3000
+#   delay: 2000
+
+# 粒子效果
+canvas_ribbon:
+  enable: true
+  size: 150
+  alpha: 0.6
+  zIndex: -1
+  click_to_change: true
+  mobile: true
+
+# 动态标题
+dynamic_title:
+  enable: true
+  show_home: true
+  home: '欢迎回来！'
+  away: '不要走啊～'
+
+# 滚动动画
+scrollreveal:
+  enable: true
+  animate: true
+  distance: 50px
+  duration: 800ms
+  delay: 0ms
+  rotate: {
+    x: 0,
+    y: 15,
+    z: 0
+  }
+  opacity: 0
+  scale: 0.8
+  easing: ease
+  viewFactor: 0.2
+  mobile: true
+
+# 鼠标点击效果
+click_heart:
+  enable: true
+  mobile: true
+
+# 鼠标跟随效果
+mouse_click_effect:
+  enable: true
+  type: star
+  color: '#ff0000'
+  size: 15
+  count: 10
+
+# 导航栏动画
+navbar:
+  effect: true
+  blur: true
+
+# 图片动画
+image_animation:
+  enable: true
+  type: zoom
+
+# 代码块动画
+code:
+  style: 'okaidia'
+  copy_btn: true
+  fold: true
+  highlight_lines: true
+  zoom: true
+  lang: true
+  tab_width: 2
+  line_number: true
+  wrap: true
+
+# 注入自定义CSS和JS
+inject:
+  head:
+    - <link rel="stylesheet" href="/css/sidebar-auth.css">
+    - <link rel="stylesheet" href="/css/custom-comments.css">
+  bottom:
+    - <script src="/js/sidebar-auth.js"></script>
+    - <script src="/js/custom-comments.js"></script>

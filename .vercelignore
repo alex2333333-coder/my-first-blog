@@ -1,0 +1,22 @@
+# 忽略目录
+node_modules/
+.themes/
+.temp/
+.cache/
+
+# 忽略文件
+.DS_Store
+Thumbs.db
+
+# 忽略日志文件
+*.log
+
+# 忽略编辑器配置文件
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 忽略 Git 相关文件
+.git/
+.gitignore

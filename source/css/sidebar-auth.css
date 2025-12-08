@@ -1,0 +1,655 @@
+/* 侧边栏登录组件样式 */
+.card-auth {
+  padding: 15px;
+  text-align: center;
+}
+
+/* 用户信息样式 */
+.card-auth .user-info {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.card-auth .user-avatar {
+  margin-bottom: 15px;
+}
+
+.card-auth .user-avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--theme-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-auth .user-details {
+  margin-bottom: 15px;
+}
+
+.card-auth .user-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 5px;
+}
+
+.card-auth .user-email {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.card-auth .logout-btn {
+  width: 100%;
+  padding: 8px 16px;
+  background: var(--theme-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.card-auth .logout-btn:hover {
+  background: var(--btn-hover-color);
+}
+
+/* 登录注册表单样式 */
+.card-auth .auth-form {
+  width: 100%;
+  padding: 10px 0;
+}
+
+/* 登录表单头部样式 */
+.card-auth .auth-header {
+  margin-bottom: 20px;
+}
+
+/* 头像样式 */
+.card-auth .auth-avatar {
+  margin-bottom: 15px;
+}
+
+.card-auth .auth-avatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 问候语样式 */
+.card-auth .auth-greeting {
+  margin-bottom: 20px;
+}
+
+.card-auth .auth-greeting p {
+  font-size: 18px;
+  color: var(--text-color);
+  margin: 0;
+}
+
+/* 登录注册按钮容器 */
+.card-auth .auth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 登录按钮样式 */
+.card-auth .auth-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.card-auth .auth-btn.login-btn {
+  background: #1890ff;
+  color: white;
+}
+
+.card-auth .auth-btn.register-btn {
+  background: #fa8c16;
+  color: white;
+}
+
+.card-auth .auth-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 模态框样式 */
+.card-auth .auth-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+/* 模态框内容 */
+.card-auth .auth-modal-content {
+  background-color: var(--card-bg);
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: modalFadeIn 0.3s ease;
+}
+
+/* 模态框淡入动画 */
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 模态框头部 */
+.card-auth .auth-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* 模态框标题 */
+.card-auth .auth-modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--text-color);
+}
+
+/* 关闭按钮 */
+.card-auth .auth-modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.card-auth .auth-modal-close:hover {
+  background: var(--border-color);
+  color: var(--text-color);
+}
+
+/* 模态框表单 */
+.card-auth .auth-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 输入框样式 */
+.card-auth .auth-modal-body input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 16px;
+  color: var(--text-color);
+  background: var(--input-bg);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.card-auth .auth-modal-body input:focus {
+  outline: none;
+  border-color: var(--theme-color);
+  box-shadow: 0 0 0 2px var(--theme-color-opacity);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .card-auth {
+    padding: 12px;
+  }
+  
+  .card-auth .user-avatar img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 12px;
+  }
+  
+  .card-auth .user-name {
+    font-size: 15px;
+  }
+  
+  .card-auth .user-email {
+    font-size: 13px;
+  }
+  
+  .card-auth .auth-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+  
+  .card-auth .auth-modal-content {
+    margin: 25% auto;
+    padding: 15px;
+  }
+  
+  .card-auth .auth-modal-body input {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+/* 深色模式适配 */
+[data-theme='dark'] .card-auth .auth-modal-content {
+  background-color: var(--card-bg-dark);
+  border-color: var(--border-color-dark);
+}
+
+[data-theme='dark'] .card-auth .auth-modal-header h3 {
+  color: var(--text-color-dark);
+}
+
+[data-theme='dark'] .card-auth .auth-modal-body input {
+  background-color: var(--input-bg-dark);
+  border-color: var(--input-border-dark);
+  color: var(--input-color-dark);
+}
+
+[data-theme='dark'] .card-auth .auth-modal-body input:focus {
+  border-color: var(--theme-color-dark);
+  box-shadow: 0 0 0 2px var(--theme-color-opacity-dark);
+}
+
+/* 确保登录组件在侧边栏中正确显示 */
+#sidebar-menus .card-auth {
+  margin: 15px 0;
+  padding: 15px;
+  background: var(--card-bg);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
+}
+
+/* 确保登录组件在文章页侧边栏中正确显示 */
+#aside-content .card-auth {
+  background: var(--card-bg);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-box-shadow);
+}
+
+/* 已登录状态下的用户信息样式 */
+.auth-user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.auth-user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.auth-user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.auth-user-avatar img:hover {
+  transform: scale(1.1);
+}
+
+.auth-user-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.auth-user-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 5px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.auth-user-email {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 用户操作按钮样式 */
+.auth-user-actions {
+  margin-top: 15px;
+}
+
+.auth-btn.logout-btn {
+  background: #ff4d4f;
+  color: white;
+  width: 100%;
+}
+
+.auth-btn.logout-btn:hover {
+  background: #ff7875;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 77, 79, 0.3);
+}
+
+/* 登录注册按钮样式 */
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.auth-btn.login-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  flex: 1;
+}
+
+.auth-btn.register-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  flex: 1;
+}
+
+.auth-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.auth-btn:active {
+  transform: translateY(0);
+}
+
+/* 模态框叠加层样式 */
+.auth-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+
+/* 模态框容器样式 */
+.auth-modal {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalFadeIn 0.3s ease;
+  display: none;
+}
+
+/* 模态框显示状态 */
+.auth-modal-overlay.show,
+.auth-modal.show {
+  display: flex;
+}
+
+/* 模态框内容样式 */
+.auth-modal-content {
+  padding: 25px;
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--card-bg) 100%);
+  border-radius: 12px;
+}
+
+/* 模态框头部样式 */
+.auth-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* 模态框标题样式 */
+.auth-modal-header h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-color);
+  background: linear-gradient(135deg, var(--theme-color) 0%, var(--theme-hover-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 模态框关闭按钮样式 */
+.auth-modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.auth-modal-close:hover {
+  background: var(--border-color);
+  color: var(--text-color);
+}
+
+/* 模态框表单容器样式 */
+.auth-form-container {
+  margin-bottom: 20px;
+}
+
+/* 表单组样式 */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* 表单标签样式 */
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+/* 表单输入框样式 */
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 16px;
+  color: var(--text-color);
+  background: var(--input-bg);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  font-weight: 500;
+}
+
+/* 表单输入框焦点样式 */
+.form-group input:focus {
+  outline: none;
+  border-color: var(--theme-color);
+  box-shadow: 0 0 0 3px var(--theme-color-opacity);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(var(--theme-color-rgb), 0.2);
+}
+
+/* 表单操作按钮容器样式 */
+.form-actions {
+  margin: 25px 0;
+}
+
+/* 登录按钮样式 */
+.auth-btn.login-submit {
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* 登录按钮悬停样式 */
+.auth-btn.login-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+/* 登录按钮点击样式 */
+.auth-btn.login-submit:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* 注册按钮样式 */
+.auth-btn.register-submit {
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* 注册按钮悬停样式 */
+.auth-btn.register-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(245, 87, 108, 0.4);
+}
+
+/* 注册按钮点击样式 */
+.auth-btn.register-submit:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(245, 87, 108, 0.3);
+}
+
+/* 表单切换样式 */
+.form-switch {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* 切换按钮样式 */
+.form-switch button {
+  background: none;
+  border: none;
+  color: var(--theme-color);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* 切换按钮悬停样式 */
+.form-switch button:hover {
+  color: var(--theme-hover-color);
+  background-color: var(--theme-color-opacity);
+  transform: translateY(-1px);
+}
+
+/* 切换按钮点击样式 */
+.form-switch button:active {
+  transform: translateY(0);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .auth-user-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .auth-user-avatar {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .auth-user-name {
+    font-size: 16px;
+  }
+  
+  .auth-user-email {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,39 @@
+if theme.aside.card_auth.enable
+  .card-widget.card-auth
+    .item-headline
+      i.fas.fa-user
+      span= theme.aside.card_auth.title || '用户中心'
+    .auth-form
+      .auth-header
+        .auth-avatar
+          img(src='/images/OIP-C.webp' alt='头像')
+        .auth-greeting
+          p= theme.aside.card_auth.greeting || 'HI! 请登录'
+      .auth-buttons
+        button#sidebar-login-btn.auth-btn.login-btn
+          i.fas.fa-sign-in-alt
+          |  登录
+        button#sidebar-register-btn.auth-btn.register-btn
+          i.fas.fa-user-plus
+          |  注册
+      // 登录表单，默认隐藏
+      .auth-modal#login-modal
+        .auth-modal-content
+          .auth-modal-header
+            h3 登录
+            button.auth-modal-close#login-modal-close &times;
+          .auth-modal-body
+            input(type='email' id='sidebar-login-email' placeholder='邮箱' required)
+            input(type='password' id='sidebar-login-password' placeholder='密码' required)
+            button#sidebar-login-submit.auth-btn.login-btn 登录
+      // 注册表单，默认隐藏
+      .auth-modal#register-modal
+        .auth-modal-content
+          .auth-modal-header
+            h3 注册
+            button.auth-modal-close#register-modal-close &times;
+          .auth-modal-body
+            input(type='text' id='sidebar-register-username' placeholder='用户名' required)
+            input(type='email' id='sidebar-register-email' placeholder='邮箱' required)
+            input(type='password' id='sidebar-register-password' placeholder='密码' required)
+            button#sidebar-register-submit.auth-btn.register-btn 注册
