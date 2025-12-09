@@ -1,8 +1,8 @@
 // Custom comments component for Hexo Butterfly theme
 // Using backend API for real comment functionality
 
-// Backend API base URL for comments - HARDCODED to ensure no overrides
-const COMMENT_API_BASE_URL = 'http://localhost:5000/api';
+// Backend API base URL for comments
+const COMMENT_API_BASE_URL = 'https://blog-backend.2136026360.workers.dev/api';
 console.log('COMMENT_API_BASE_URL is set to:', COMMENT_API_BASE_URL);
 
 // Get JWT token from localStorage
@@ -13,9 +13,8 @@ function getToken() {
 // Get comments for a specific post
 async function getComments(postId) {
   try {
-    // HARDCODED URL to avoid any overrides
-    const fullUrl = 'http://localhost:5000/api/comments/' + postId;
-    console.log('GET Comments - Hardcoded URL:', fullUrl);
+    const fullUrl = COMMENT_API_BASE_URL + '/comments/' + postId;
+    console.log('GET Comments - URL:', fullUrl);
     
     const response = await fetch(fullUrl, {
       headers: {
@@ -61,9 +60,8 @@ async function createComment(postId, content) {
   }
 
   try {
-    // HARDCODED URL to avoid any overrides
-    const fullUrl = 'http://localhost:5000/api/comments/' + postId;
-    console.log('POST Comment - Hardcoded URL:', fullUrl);
+    const fullUrl = COMMENT_API_BASE_URL + '/comments/' + postId;
+    console.log('POST Comment - URL:', fullUrl);
     console.log('POST Comment - Content:', content);
     console.log('POST Comment - Token:', token);
     
@@ -133,9 +131,8 @@ async function likeComment(commentId) {
   }
 
   try {
-    // HARDCODED URL to avoid any overrides
-    const fullUrl = 'http://localhost:5000/api/comments/' + commentId + '/like';
-    console.log('Like Comment - Hardcoded URL:', fullUrl);
+    const fullUrl = COMMENT_API_BASE_URL + '/comments/' + commentId + '/like';
+    console.log('Like Comment - URL:', fullUrl);
     
     const response = await fetch(fullUrl, {
       method: 'POST',

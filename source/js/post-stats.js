@@ -1,6 +1,6 @@
 // Simple post statistics script
 // Configuration
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://blog-backend.2136026360.workers.dev/api';
 
 // Log function for debugging
 function log(msg) {
