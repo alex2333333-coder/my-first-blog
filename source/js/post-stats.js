@@ -1,6 +1,9 @@
 // Simple post statistics script with anonymous like support
 // Configuration
-// 直接使用全局API_BASE_URL
+// 直接使用全局API_BASE_URL，如果不存在则使用默认值
+if (typeof window.API_BASE_URL === 'undefined') {
+  window.API_BASE_URL = 'https://blog-backend.2136026360.workers.dev/api';
+}
 
 // Log function for debugging
 function log(msg) {

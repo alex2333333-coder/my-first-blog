@@ -1,8 +1,25 @@
+// Login component for Hexo Butterfly theme
+// Using backend API for real user authentication
+
 // 基础配置
 // 全局声明API_BASE_URL，供所有文件使用
 if (typeof window.API_BASE_URL === 'undefined') {
   window.API_BASE_URL = 'http://localhost:5000/api';
 }
+
+// Fix the broken script tag issue first
+function fixBrokenScriptTag() {
+  const scripts = document.querySelectorAll('script');
+  scripts.forEach(script => {
+    if (script.src === '/' || script.src === 'http://localhost:4000/' || script.src === 'https://steadybin.xyz/' || script.src === window.location.origin + '/') {
+      script.remove();
+      console.log('Removed broken script tag!');
+    }
+  });
+}
+
+// 确保修复脚本标签
+fixBrokenScriptTag();
 
 // 获取JWT令牌
 function getToken() {
