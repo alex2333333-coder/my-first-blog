@@ -1,25 +1,8 @@
-// Login component for Hexo Butterfly theme
-// Using backend API for real user authentication
-
 // 基础配置
 // 全局声明API_BASE_URL，供所有文件使用
 if (typeof window.API_BASE_URL === 'undefined') {
   window.API_BASE_URL = 'http://localhost:5000/api';
 }
-
-// Fix the broken script tag issue first
-function fixBrokenScriptTag() {
-  const scripts = document.querySelectorAll('script');
-  scripts.forEach(script => {
-    if (script.src === '/' || script.src === 'http://localhost:4000/' || script.src === 'https://steadybin.xyz/' || script.src === window.location.origin + '/') {
-      script.remove();
-      console.log('Removed broken script tag!');
-    }
-  });
-}
-
-// 确保修复脚本标签
-fixBrokenScriptTag();
 
 // 获取JWT令牌
 function getToken() {
@@ -313,76 +296,70 @@ async function updateLoginStatus() {
     }
   }
   
-  // 重置所有元素状态
-  const authButtons = cardAuth.querySelectorAll('.auth-buttons');
-  const authHeader = cardAuth.querySelector('.auth-header');
-  const authGreeting = cardAuth.querySelector('.auth-greeting');
-  
   if (userInfo) {
     // 用户已登录，显示用户信息
+    const authButtons = cardAuth.querySelectorAll('.auth-buttons');
     authButtons.forEach(btn => btn.style.display = 'none');
     
-    // 显示原有的认证头部（蓝色头发头像），隐藏问候语
+    // 隐藏默认的auth-header部分（包含第二个头像）
+    const authHeader = cardAuth.querySelector('.auth-header');
     if (authHeader) {
-      authHeader.style.display = 'block';
-    }
-    if (authGreeting) {
-      authGreeting.style.display = 'none';
+      authHeader.style.display = 'none';
     }
     
-    // 移除所有旧的user-info元素，重新创建
-    const oldUserInfos = cardAuth.querySelectorAll('.user-info');
-    oldUserInfos.forEach(el => el.remove());
-    
-    // 创建新的user-info元素，不含头像
-    const userInfoHtml = `
-      <div class="user-info">
-        <div class="user-details">
-          <h4 class="user-name">${userInfo.username}</h4>
-          ${userInfo.email ? `<p class="user-email">${userInfo.email}</p>` : ''}
+    // 检查是否已存在用户信息元素
+    let userInfoElement = cardAuth.querySelector('.user-info');
+    if (!userInfoElement) {
+      const userInfoHtml = `
+        <div class="user-info">
+          <div class="user-avatar">
+            <img src="/images/OIP-C.webp" alt="${userInfo.username}">
+          </div>
+          <div class="user-details">
+            <h4 class="user-name">${userInfo.username}</h4>
+            ${userInfo.email ? `<p class="user-email">${userInfo.email}</p>` : ''}
+          </div>
+          <button class="auth-btn logout-btn">
+            <i class="fas fa-sign-out-alt"></i> 登出
+          </button>
         </div>
-        <button class="auth-btn logout-btn">
-          <i class="fas fa-sign-out-alt"></i> 登出
-        </button>
-      </div>
-    `;
-    cardAuth.insertAdjacentHTML('beforeend', userInfoHtml);
-    
-    // 添加登出事件
-    const logoutBtn = cardAuth.querySelector('.logout-btn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', async () => {
-        try {
-          await fetch(`${window.API_BASE_URL}/auth/logout`, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
-          });
-        } catch (error) {
-          console.error('登出错误:', error);
-        }
-        
-        removeToken();
-        updateLoginStatus();
-        alert('登出成功！');
-      });
+      `;
+      cardAuth.insertAdjacentHTML('beforeend', userInfoHtml);
+      
+      // 添加登出事件
+      const logoutBtn = cardAuth.querySelector('.logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+          try {
+            await fetch(`${window.API_BASE_URL}/auth/logout`, {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            });
+          } catch (error) {
+            console.error('登出错误:', error);
+          }
+          
+          removeToken();
+          updateLoginStatus();
+          alert('登出成功！');
+        });
+      }
     }
   } else {
     // 用户未登录，显示登录按钮
-    // 移除所有user-info元素
     const userInfoElements = cardAuth.querySelectorAll('.user-info');
-    userInfoElements.forEach(el => el.remove());
+    userInfoElements.forEach(el => el.style.display = 'none');
     
-    // 显示完整的认证头部和登录按钮
+    // 显示默认的auth-header部分
+    const authHeader = cardAuth.querySelector('.auth-header');
     if (authHeader) {
       authHeader.style.display = 'block';
     }
-    if (authGreeting) {
-      authGreeting.style.display = 'block';
-    }
     
+    const authButtons = cardAuth.querySelectorAll('.auth-buttons');
     authButtons.forEach(btn => btn.style.display = 'flex');
   }
 }

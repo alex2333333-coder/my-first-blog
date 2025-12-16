@@ -1,8 +1,11 @@
 // Custom comments component for Hexo Butterfly theme
 // Using backend API for real comment functionality
 
-// Backend API base URL for comments
-const COMMENT_API_BASE_URL = 'https://blog-backend.2136026360.workers.dev/api';
+// Backend API base URL for comments - use the same global base URL as other components
+if (typeof window.API_BASE_URL === 'undefined') {
+  window.API_BASE_URL = 'http://localhost:5000/api';
+}
+const COMMENT_API_BASE_URL = window.API_BASE_URL;
 console.log('COMMENT_API_BASE_URL is set to:', COMMENT_API_BASE_URL);
 
 // Get JWT token from localStorage
