@@ -22,6 +22,27 @@ const UserSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  // GitHub关联字段
+  githubId: {
+    type: String,
+    unique: true,
+    sparse: true
+  },
+  githubName: {
+    type: String
+  },
+  githubEmail: {
+    type: String
+  },
+  githubAvatar: {
+    type: String
+  },
+  githubAccessToken: {
+    type: String
+  },
+  githubRefreshToken: {
+    type: String
   }
 });
 

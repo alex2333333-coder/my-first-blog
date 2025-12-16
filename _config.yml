@@ -118,6 +118,8 @@ inject:
   head:
     - <link rel="stylesheet" href="/css/sidebar-auth.css">
     - <link rel="stylesheet" href="/css/custom-comments.css">
+    - <link rel="stylesheet" href="/css/post-like.css">
   bottom:
     - <script src="/js/sidebar-auth.js"></script>
     - <script src="/js/custom-comments.js"></script>
+    - <script src="/js/post-like.js"></script>

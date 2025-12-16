@@ -1,8 +1,36 @@
+## 恢复登录按钮功能计划
+
+### 问题分析
+登录、注册、GitHub和Gitee按钮点击无响应，之前的修改过于复杂导致问题。需要简化代码，直接绑定事件监听器到按钮，利用现有后端API功能。
+
+### 解决方案
+
+#### 1. 重写`sidebar-auth.js`文件
+- **简化代码结构**：移除复杂的调试日志和冗余功能
+- **直接事件绑定**：使用原生JavaScript直接为按钮添加事件监听器
+- **利用现有后端API**：直接调用后端提供的GitHub和Gitee登录端点
+- **支持PJAX**：确保在Butterfly主题的PJAX环境下正常工作
+- **保留核心功能**：保留登录、注册模态框和第三方登录功能
+
+#### 2. 核心实现思路
+
+**文件：`source/js/sidebar-auth.js`**
+
+- **基础配置**：定义API基础URL
+- **事件处理函数**：
+  - 处理登录按钮点击：打开登录模态框
+  - 处理注册按钮点击：打开注册模态框
+  - 处理GitHub登录：重定向到GitHub授权URL
+  - 处理Gitee登录：重定向到Gitee授权URL
+  - 处理登出按钮点击：调用后端登出API
+- **DOM就绪绑定**：在DOM加载完成后直接绑定事件监听器
+- **PJAX支持**：监听`pjax:complete`事件，重新绑定事件
+
+#### 3. 具体实现内容
+
+```javascript
 // 基础配置
-// 全局声明API_BASE_URL，供所有文件使用
-if (typeof window.API_BASE_URL === 'undefined') {
-  window.API_BASE_URL = 'http://localhost:5000/api';
-}
+const API_BASE_URL = 'http://localhost:5000/api';
 
 // 获取JWT令牌
 function getToken() {
@@ -34,13 +62,13 @@ function handleRegisterClick() {
 // 处理GitHub登录
 function handleGithubLogin() {
   console.log('GitHub登录按钮被点击');
-  window.location.href = `${window.API_BASE_URL}/auth/github`;
+  window.location.href = `${API_BASE_URL}/auth/github`;
 }
 
 // 处理Gitee登录
 function handleGiteeLogin() {
   console.log('Gitee登录按钮被点击');
-  window.location.href = `${window.API_BASE_URL}/auth/gitee`;
+  window.location.href = `${API_BASE_URL}/auth/gitee`;
 }
 
 // 创建登录/注册模态框
@@ -187,7 +215,7 @@ function initModalEvents() {
       
       if (username && password) {
         try {
-          const response = await fetch(`${window.API_BASE_URL}/auth/login`, {
+          const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -199,6 +227,7 @@ function initModalEvents() {
 
           if (response.ok) {
             setToken(result.token);
+            alert(`登录成功！欢迎回来，${result.user.username}！`);
             hideAuthModal();
             updateLoginStatus();
           } else {
@@ -224,7 +253,7 @@ function initModalEvents() {
       
       if (username && email && password) {
         try {
-          const response = await fetch(`${window.API_BASE_URL}/auth/register`, {
+          const response = await fetch(`${API_BASE_URL}/auth/register`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -235,10 +264,11 @@ function initModalEvents() {
           const result = await response.json();
 
           if (response.ok) {
-        setToken(result.token);
-        hideAuthModal();
-        updateLoginStatus();
-      } else {
+            setToken(result.token);
+            alert(`注册成功！欢迎您，${result.user.username}！`);
+            hideAuthModal();
+            updateLoginStatus();
+          } else {
             alert(result.message || '注册失败，请检查输入信息！');
           }
         } catch (error) {
@@ -280,13 +310,13 @@ async function updateLoginStatus() {
   let userInfo = null;
   
   if (token) {
-      try {
-        const response = await fetch(`${window.API_BASE_URL}/auth/me`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        });
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/me`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
       
       if (response.ok) {
         userInfo = await response.json();
@@ -296,76 +326,58 @@ async function updateLoginStatus() {
     }
   }
   
-  // 重置所有元素状态
-  const authButtons = cardAuth.querySelectorAll('.auth-buttons');
-  const authHeader = cardAuth.querySelector('.auth-header');
-  const authGreeting = cardAuth.querySelector('.auth-greeting');
-  
   if (userInfo) {
     // 用户已登录，显示用户信息
+    const authButtons = cardAuth.querySelectorAll('.auth-buttons');
     authButtons.forEach(btn => btn.style.display = 'none');
     
-    // 显示原有的认证头部（蓝色头发头像），隐藏问候语
-    if (authHeader) {
-      authHeader.style.display = 'block';
-    }
-    if (authGreeting) {
-      authGreeting.style.display = 'none';
-    }
-    
-    // 移除所有旧的user-info元素，重新创建
-    const oldUserInfos = cardAuth.querySelectorAll('.user-info');
-    oldUserInfos.forEach(el => el.remove());
-    
-    // 创建新的user-info元素，不含头像
-    const userInfoHtml = `
-      <div class="user-info">
-        <div class="user-details">
-          <h4 class="user-name">${userInfo.username}</h4>
-          ${userInfo.email ? `<p class="user-email">${userInfo.email}</p>` : ''}
+    // 检查是否已存在用户信息元素
+    let userInfoElement = cardAuth.querySelector('.user-info');
+    if (!userInfoElement) {
+      const userInfoHtml = `
+        <div class="user-info">
+          <div class="user-avatar">
+            <img src="/images/OIP-C.webp" alt="${userInfo.username}">
+          </div>
+          <div class="user-details">
+            <h4 class="user-name">${userInfo.username}</h4>
+            ${userInfo.email ? `<p class="user-email">${userInfo.email}</p>` : ''}
+          </div>
+          <button class="auth-btn logout-btn">
+            <i class="fas fa-sign-out-alt"></i> 登出
+          </button>
         </div>
-        <button class="auth-btn logout-btn">
-          <i class="fas fa-sign-out-alt"></i> 登出
-        </button>
-      </div>
-    `;
-    cardAuth.insertAdjacentHTML('beforeend', userInfoHtml);
-    
-    // 添加登出事件
-    const logoutBtn = cardAuth.querySelector('.logout-btn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', async () => {
-        try {
-          await fetch(`${window.API_BASE_URL}/auth/logout`, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
-          });
-        } catch (error) {
-          console.error('登出错误:', error);
-        }
-        
-        removeToken();
-        updateLoginStatus();
-        alert('登出成功！');
-      });
+      `;
+      cardAuth.insertAdjacentHTML('beforeend', userInfoHtml);
+      
+      // 添加登出事件
+      const logoutBtn = cardAuth.querySelector('.logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+          try {
+            await fetch(`${API_BASE_URL}/auth/logout`, {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            });
+          } catch (error) {
+            console.error('登出错误:', error);
+          }
+          
+          removeToken();
+          updateLoginStatus();
+          alert('登出成功！');
+        });
+      }
     }
   } else {
     // 用户未登录，显示登录按钮
-    // 移除所有user-info元素
     const userInfoElements = cardAuth.querySelectorAll('.user-info');
-    userInfoElements.forEach(el => el.remove());
+    userInfoElements.forEach(el => el.style.display = 'none');
     
-    // 显示完整的认证头部和登录按钮
-    if (authHeader) {
-      authHeader.style.display = 'block';
-    }
-    if (authGreeting) {
-      authGreeting.style.display = 'block';
-    }
-    
+    const authButtons = cardAuth.querySelectorAll('.auth-buttons');
     authButtons.forEach(btn => btn.style.display = 'flex');
   }
 }
@@ -407,34 +419,13 @@ function bindLoginButtonListeners() {
   console.log('登录按钮事件监听器绑定完成！');
 }
 
-// 处理OAuth回调，保存token
-function handleOAuthCallback() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const token = urlParams.get('token');
-  
-  if (token) {
-    console.log('从URL获取到token:', token);
-    setToken(token);
-    
-    // 可选：重定向到首页，清除URL中的token
-    window.history.replaceState({}, document.title, window.location.pathname);
-    
-    // 更新登录状态
-    updateLoginStatus();
-    
-    
-  }
-}
-
 // DOM就绪时初始化
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    handleOAuthCallback();
     bindLoginButtonListeners();
     updateLoginStatus();
   });
 } else {
-  handleOAuthCallback();
   bindLoginButtonListeners();
   updateLoginStatus();
 }
@@ -446,3 +437,41 @@ if (window.Pjax) {
     updateLoginStatus();
   });
 }
+```
+
+### 预期结果
+- 登录按钮点击后打开登录模态框
+- 注册按钮点击后打开注册模态框
+- GitHub登录按钮点击后跳转到GitHub授权页面
+- Gitee登录按钮点击后跳转到Gitee授权页面
+- 登录成功后显示用户信息
+- 支持PJAX技术
+- 调试日志清晰，便于排查问题
+
+### 验证方法
+1. 打开浏览器开发者工具的Console面板
+2. 刷新页面，查看调试日志
+3. 点击各个登录按钮，查看是否有相应的日志输出
+4. 验证GitHub和Gitee按钮是否能正确跳转到授权页面
+5. 验证登录和注册模态框是否能正常打开
+
+### 风险评估
+- 低风险：代码简单，依赖少
+- 可回滚：易于恢复到原始代码
+- 兼容性：与现有后端API兼容
+- 扩展性：便于后续添加更多功能
+
+### 实施步骤
+1. 重写`sidebar-auth.js`文件
+2. 确保DOM加载完成后绑定事件
+3. 测试GitHub和Gitee登录跳转功能
+4. 测试登录和注册模态框
+5. 测试PJAX支持
+6. 验证用户登录状态显示
+
+### 技术细节
+- **原生JavaScript**：不依赖任何外部库
+- **简单直接**：直接绑定事件监听器，没有复杂的状态管理
+- **支持PJAX**：监听`pjax:complete`事件，重新绑定事件
+- **调试友好**：添加必要的日志输出
+- **保留核心功能**：保留登录、注册模态框和第三方登录功能

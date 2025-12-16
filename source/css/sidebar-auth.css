@@ -374,6 +374,7 @@
 /* 登录注册按钮样式 */
 .auth-buttons {
   display: flex;
+  flex-direction: column;
   gap: 10px;
   margin-top: 15px;
 }
@@ -386,6 +387,18 @@
 
 .auth-btn.register-btn {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  flex: 1;
+}
+
+.auth-btn.github-btn {
+  background: #333;
+  color: white;
+  flex: 1;
+}
+
+.auth-btn.gitee-btn {
+  background: #c7254e;
   color: white;
   flex: 1;
 }

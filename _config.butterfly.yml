@@ -218,6 +218,14 @@ card:
 #   duration: 3000
 #   delay: 2000
 
+# 页脚配置
+footer:
+  # ICP备案号
+  icp:
+    enable: true
+    text: 陇ICP备2025024668号-1
+    url: http://beian.miit.gov.cn/
+
 # 粒子效果
 canvas_ribbon:
   enable: true
@@ -288,10 +296,13 @@ code:
   wrap: true
 
 # 注入自定义CSS和JS
+# 注入自定义HTML
 inject:
   head:
+    - <link rel="stylesheet" href="/css/post-like.css">
     - <link rel="stylesheet" href="/css/sidebar-auth.css">
     - <link rel="stylesheet" href="/css/custom-comments.css">
   bottom:
+    - <script src="/js/post-like.js"></script>
     - <script src="/js/sidebar-auth.js"></script>
     - <script src="/js/custom-comments.js"></script>
